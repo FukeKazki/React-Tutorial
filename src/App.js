@@ -27,10 +27,20 @@ const App = () => {
         ])
     }
 
-    // ボタンを押したときに呼ばれる
+    // 指定したIndex番号のタスクを削除する
+    const removeTask = (index) => {
+        setTasks(prev => prev.filter((_, i) => i !== index))
+    }
+
+    // 追加ボタンを押したときに呼ばれる
     const handleAddButton = () => {
         addTask()
         resetTaskTitle()
+    }
+
+    // 削除ボタンを押したときに呼ばれる
+    const handleRemoveButton = (index) => {
+        removeTask(index)
     }
 
     return (
@@ -45,9 +55,10 @@ const App = () => {
             {/* タスクリスト */}
             <div className='task-list'>
                 {/* 配列の中身の数だけ繰り返す */}
-                {tasks.map(task => (
+                {tasks.map((task, index) => (
                     <div key={task.title} className='task'>
                         <h3>{task.title}</h3>
+                        <button onClick={() => handleRemoveButton(index)}>削除</button>
                     </div>
                 ))}
             </div>
